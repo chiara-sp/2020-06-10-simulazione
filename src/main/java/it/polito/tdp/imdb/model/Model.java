@@ -86,5 +86,8 @@ public class Model {
 		List<Actor> lista = new LinkedList<>(sim.intervistati.values());
 		return lista;
 	}
+	public int numPause() {
+		return sim.pause;
+	}
 	
 }

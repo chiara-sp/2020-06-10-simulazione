@@ -44,12 +44,25 @@ public class Simulatore {
 		for(int i=2; i<=giorni; i++) {
 			
 			double num= Math.random();
+			if(i>=3 && intervistati.get(i-1)!=null && intervistati.get(i-2)!=null &&
+					intervistati.get(i-1).gender.equals(intervistati.get(i-2).gender)) {
+				if(Math.random()<=0.9) {
+					pause++;
+					continue;
+				}
+			}
+			if(!intervistati.containsKey(i-1) && i>2) {
+				Actor a= getMathRandomList(attoriDisponibili);
+				intervistati.put(i, a);
+				this.attoriDisponibili.remove(a);
+				continue;
+			}
 			if(num<=0.6) {
 				Actor a= getMathRandomList(attoriDisponibili);
 				intervistati.put(i, a);
 				this.attoriDisponibili.remove(a);
 			}
-			else {
+			else if(num>0.6) {
 				Actor last= intervistati.get(intervistati.size());
 				Actor recommended= getRecommended(last);
 				if(recommended==null) {
@@ -68,10 +81,10 @@ public class Simulatore {
 	private Actor getRecommended(Actor lastInterviewed) {
 		Actor recommended = null;
 		int weight = 0;
-		/*if(!grafo.vertexSet().contains(lastInterviewed)) {
+		if(!grafo.vertexSet().contains(lastInterviewed)) {
 			System.out.println("errore");
 			return null;
-		}*/
+		}
 			
 		for(Actor neighbor : Graphs.neighborListOf(this.grafo, lastInterviewed)) {
 			if(this.grafo.getEdgeWeight(this.grafo.getEdge(lastInterviewed, neighbor)) > weight) {

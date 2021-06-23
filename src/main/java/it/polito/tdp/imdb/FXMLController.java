@@ -95,8 +95,8 @@ public class FXMLController {
     	model.simula(giorni);
     	for(Actor a: model.intervistati()) {
     		txtResult.appendText(a.toString()+ "\n");
-    		System.out.println(a.toString()+ "\n");
     	}
+    	txtResult.appendText("\nNumero di giorni di pausa: "+model.numPause()+ "\n");
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
